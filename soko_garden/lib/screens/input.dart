@@ -14,7 +14,11 @@ class _InputState extends State<Input> {
   var amount = TextEditingController(text: '20');
   var phoneNumber = TextEditingController(text : '254757693623');
   var formKey = GlobalKey<FormState>();
- 
+ var isLogin = true;
+  void toggle() => setState(() {
+    isLogin = !isLogin;
+
+  });
 
 
 
@@ -26,7 +30,7 @@ class _InputState extends State<Input> {
         title: const Text('Mpesa Transactions'),
         actions : [
           IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (_)=>const Products()));}, icon: const Icon(Icons.shop_outlined)),
-          IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (_)=> const Register()));}, icon: const Icon(Icons.sunny_snowing))
+          IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (_)=>  Register(onClickedSignup: toggle,)));}, icon: const Icon(Icons.sunny_snowing))
           ]
         ),
         body: Form(

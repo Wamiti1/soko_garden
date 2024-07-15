@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:soko_garden/controller/users.dart';
 import 'package:soko_garden/screens/auth/register.dart';
+import 'package:flutter/gestures.dart';
+import 'package:soko_garden/screens/products.dart';
 
 
 class Login extends StatefulWidget {
-  const Login({super.key});
+  final VoidCallback onClicked;
+  const Login({super.key,  required this.onClicked});
 
   @override
   State<Login> createState() => _LoginState();
@@ -103,17 +106,27 @@ class _LoginState extends State<Login> {
             var isValid =formKey.currentState!.validate();
             if(isValid){
               login(username.text, password.text);
+              Navigator.push(context, MaterialPageRoute(builder: (_)=> const Products()));
             }
             else{
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Invalid credentials')));
             }
 
           }, child: const Text('Log In')),
-           OutlinedButton(onPressed: (){
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> const Register()));
 
-            }, child: const Text("Don't have an account? Registser"))
+       RichText(
+            text: TextSpan(
+              children: [
+                const TextSpan(text: "Dont have an account?"),
+                TextSpan(text:' Sign Up', style: const TextStyle(color: Colors.blue), recognizer: TapGestureRecognizer()..onTap = widget.onClicked),
 
+          
+                
+              ],
+            ))
+
+
+           
         ],),
 
 

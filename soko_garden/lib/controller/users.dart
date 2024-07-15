@@ -28,11 +28,11 @@ if(response.statusCode == 200){
 }
 
 else{
-  throw Exception('Failed to create user: ${response.statusCode} - ${response.body}');                                                                              
+  return null;                                                                         
 }
   }
   catch(e){
-    print(e);
+    return null;
   } 
 }
 

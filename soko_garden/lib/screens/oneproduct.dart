@@ -42,8 +42,8 @@ class _OneproductState extends State<Oneproduct> {
             children: [
             Image.network('$api/static/images/${data[5]}'),
             Text(data.toString()),
-            Text('Product Name : ${NumberFormat().format(data[1])  }'),
-            Text('Product Price : ${data[2]}'),
+            Text('Product Name : ${data[2]}'),
+            Text('Product Price : ${data[3]}'),
             TextButton.icon(onPressed: (){
 
 

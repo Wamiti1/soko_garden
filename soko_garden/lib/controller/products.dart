@@ -30,7 +30,7 @@ Future getoneproduct(int id, BuildContext context) async{
       var body = jsonEncode({
         "id":id
       });
-    var url = Uri.parse('$api/single_item');
+    var url = Uri.parse('$api/api/single_item');
     var headers = {
       "Content-type":"application/json"
     };
@@ -38,10 +38,12 @@ Future getoneproduct(int id, BuildContext context) async{
 
       http.Response response = await http.post(url,body:body, headers:headers);
     if(response.statusCode == 200){
+      print (response.body);
       return jsonDecode(response.body);
+      
     }
     else{
-      
+       print (response.body);
       return null;
     }
 
@@ -64,12 +66,15 @@ Future getoneproduct(int id, BuildContext context) async{
 
 
  Future getproducts() async{
-    http.Response response = await http.get(Uri.parse('$api/api/products'));
+    http.Response response = await http.get(Uri.parse('https://soko.titus.co.ke/api/products'));
     if(response.statusCode == 200){
         
         var products = jsonDecode(response.body);
         return products;
 
+    }
+    else{
+      return null;
     }
   }
 
@@ -88,7 +93,7 @@ headers: {
 
 if(response.statusCode == 200){
   return jsonDecode(response.body);
-  
+
 }
 
 }

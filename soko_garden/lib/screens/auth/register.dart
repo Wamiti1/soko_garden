@@ -1,10 +1,13 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:soko_garden/controller/users.dart';
 import 'package:soko_garden/screens/auth/login.dart';
-
+import 'package:soko_garden/screens/products.dart';
+      
 class Register extends StatefulWidget {
-  const Register({super.key});
+  final VoidCallback  onClickedSignup;
+  const Register({super.key, required this.onClickedSignup});
 
   @override
   State<Register> createState() => _RegisterState();
@@ -23,7 +26,7 @@ class _RegisterState extends State<Register> {
       appBar: AppBar(
         title: const Center(child: Text('Register')),
         automaticallyImplyLeading: false,
-        actions: [IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (_)=> const Login()));}, icon: const Icon(Icons.pages_sharp))],
+       
       ),
       
       body: ListView(
@@ -70,7 +73,7 @@ class _RegisterState extends State<Register> {
                         keyboardType: TextInputType.text,
                         validator: (value){
                           var validator = EmailValidator.validate('$value');
-                          if(validator){
+                          if(!validator){
                             return null;
                           }else{
                             return 'Invalid Email';
@@ -153,7 +156,7 @@ class _RegisterState extends State<Register> {
                         keyboardType: TextInputType.text,
                         validator: (value){
                           if(value!.isEmpty){
-                            return 'Enter a valid username';
+                            return 'Enter a password';
                           }
                           else if(value.length < 6){
                             return 'Password should be at least 6 characters long';
@@ -179,7 +182,10 @@ class _RegisterState extends State<Register> {
                 try{
                 if(isValid){
                   try{
-                    create(username.text, email.text, phone.text, password.text, confirmpassword.text);
+                    create(username.text, email.text, phone.text, password.text, confirmpassword.text).then((value){
+                      Navigator.push(context, MaterialPageRoute(builder: (_)=>const Products()));
+                    });
+
                   }
                   catch(e){
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
@@ -193,10 +199,16 @@ class _RegisterState extends State<Register> {
         
             }, child: const Text('Register')),
 
-            OutlinedButton(onPressed: (){
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> const Login()));
+           RichText(
+            text: TextSpan(
+              children: [
+                const TextSpan(text: 'Already have an account?'),
+                TextSpan(text:' Sign In', style: const TextStyle(color: Colors.blue), recognizer: TapGestureRecognizer()..onTap = widget.onClickedSignup),
 
-            }, child: const Text('Have an account? Sign in')),  
+          
+                
+              ],
+            ))
           ],),
       ]),
       

@@ -20,7 +20,6 @@ class Products extends StatefulWidget {
 class _ProductsState extends State<Products> {
   
 
-  List products =[];
   List one = [];
   
 
@@ -55,27 +54,27 @@ class _ProductsState extends State<Products> {
             var data = snapshot.data;
             if(data != null){
               return ListView.builder(
-                      itemCount: products.length,
+                      itemCount: data.length,
                       itemBuilder: (context, index){
                   return ListTile(
                     onTap: (){
-                      getone(products[index][0]);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Oneproduct(productId: products[index][0],)));
+                      getone(data[index][0]);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Oneproduct(productId: data[index][0],)));
                       
                     },
 
 
                     leading:  SizedBox(
                       height: MediaQuery.of(context).size.height*0.3,
-                      child: Image.network("$api/static/images/${products[index][5]}",scale: 2, )),
+                      child: Image.network("$api/static/images/${data[index][5]}",scale: 2, )),
                   
                     subtitle:
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Product Name : ${products[index][1]}'),
-                            Text('Product Description : ${products[index][2]}',overflow: TextOverflow.visible,),
-                            Text('Product Price : KSH ${ NumberFormat().format(products[index][3])}'),
+                            Text('Product Name : ${data[index][1]}'),
+                            Text('Product Description : ${data[index][2]}',overflow: TextOverflow.visible,),
+                            Text('Product Price : KSH ${ NumberFormat().format(data[index][3])}'),
                             
                           ],
                 ),
