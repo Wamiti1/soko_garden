@@ -21,7 +21,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text('Login')),
+        title: const Center(child: Text('Register')),
         automaticallyImplyLeading: false,
         actions: [IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (_)=> const Login()));}, icon: const Icon(Icons.pages_sharp))],
       ),
@@ -191,8 +191,12 @@ class _RegisterState extends State<Register> {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
                 }
         
-            }, child: const Text('Register'))
-        
+            }, child: const Text('Register')),
+
+            OutlinedButton(onPressed: (){
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> const Login()));
+
+            }, child: const Text('Have an account? Sign in')),  
           ],),
       ]),
       

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soko_garden/controller/users.dart';
+import 'package:soko_garden/screens/auth/register.dart';
 
 
 class Login extends StatefulWidget {
@@ -103,10 +104,20 @@ class _LoginState extends State<Login> {
             if(isValid){
               login(username.text, password.text);
             }
+            else{
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Invalid credentials')));
+            }
 
-          }, child: const Text('Log In'))
+          }, child: const Text('Log In')),
+           OutlinedButton(onPressed: (){
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> const Register()));
+
+            }, child: const Text("Don't have an account? Registser"))
 
         ],),
+
+
+        
       
       
       
