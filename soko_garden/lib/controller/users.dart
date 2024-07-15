@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 Future create(String username, String email, String phone, String password, String confirmpassword)async {
   try{
 
-var url = Uri.parse("$api/signup");
+var url = Uri.parse("$api/api/signup");
 var headers = {
   "Content-Type":"application/json"
 };
@@ -44,7 +44,7 @@ else{
 Future login(String username, String password, )async {
   try{
 
-var url = Uri.parse("$api/login");
+var url = Uri.parse("$api/api/login");
 var headers = {
   "Content-Type":"application/json"
 };
