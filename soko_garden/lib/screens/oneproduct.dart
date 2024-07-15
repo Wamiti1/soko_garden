@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:soko_garden/controller/api.dart';
-
+import 'package:soko_garden/controller/products.dart';
+import 'package:intl/intl.dart';
 import '../api/apilist.dart';
 
 class Oneproduct extends StatefulWidget {
@@ -33,20 +33,32 @@ class _OneproductState extends State<Oneproduct> {
           return Text("Error : ${snapshot.error.toString()}");
         }
         else{
-            //show our data
-          var data = snapshot.data;
+
+
+          if(snapshot.hasData){
+             var data = snapshot.data;
           //build our UI
           return Column(
             children: [
-            // Image.network('$api/static/images/'),
+            Image.network('$api/static/images/${data[5]}'),
             Text(data.toString()),
-            Text('Product Name'),
-            Text('Product Price'),
-            TextButton.icon(onPressed: (){}, label: Text('Buy'))
+            Text('Product Name : ${NumberFormat().format(data[1])  }'),
+            Text('Product Price : ${data[2]}'),
+            TextButton.icon(onPressed: (){
+
+
+            }, label: const Text('Buy'))
       
             ],
       
           );
+          }
+
+          else{
+            return const Text('No Data Found');
+          }
+            
+         
       
         }
       

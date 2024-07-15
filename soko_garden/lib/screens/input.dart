@@ -1,8 +1,7 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:soko_garden/api/apilist.dart';
+import 'package:soko_garden/screens/auth/register.dart';
 import 'package:soko_garden/screens/products.dart';
-import 'package:http/http.dart' as http;
+import '../controller/payments.dart';
 
 class Input extends StatefulWidget {
   const Input({super.key});
@@ -15,34 +14,7 @@ class _InputState extends State<Input> {
   var amount = TextEditingController(text: '20');
   var phoneNumber = TextEditingController(text : '254757693623');
   var formKey = GlobalKey<FormState>();
-  Future mpesa() async{
-    try{
-      var url = Uri.parse('$api/api/mpesa');
-      var body = jsonEncode({
-        'amount': amount.text,
-        'phone': phoneNumber.text
-      });
-      var headers ={"Content-type":"application/json"};
-
-      http.Response response = await http.post(url,body:body, headers:headers);
-      if(response.statusCode == 200){
-        if(mounted){
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Successful')));
-        }
-        else{}
-      }
-
-    }
-    catch(e){
-       if(mounted){
-          ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text(e.toString())));
-        }
-    
-    }
-
-
-
-  }
+ 
 
 
 
@@ -52,7 +24,10 @@ class _InputState extends State<Input> {
     return Scaffold(
       appBar:AppBar(
         title: const Text('Mpesa Transactions'),
-        actions : [IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (_)=>const Products()));}, icon: const Icon(Icons.shop_outlined))]
+        actions : [
+          IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (_)=>const Products()));}, icon: const Icon(Icons.shop_outlined)),
+          IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (_)=> const Register()));}, icon: const Icon(Icons.sunny_snowing))
+          ]
         ),
         body: Form(
           key: formKey,
@@ -104,7 +79,7 @@ class _InputState extends State<Input> {
 
               ElevatedButton(onPressed: (){
                 if(formKey.currentState!.validate()){
-                  try{mpesa();}
+                  try{mpesa(double.tryParse(amount.text)!, phoneNumber.text);}
                   catch(e){
                     if(mounted){
                       ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text(e.toString())));
